@@ -69,3 +69,25 @@ We wanted a boilerplate from which we could be productive immediately, without i
 ## Acknowledgments
 
 This work is inspired by [Extensionizr](https://github.com/altryne/extensionizr/), and the icons in `dist/icons` remain under the Extensionizr license.
+
+# Sync with author
+
+````
+// Add remote branch, name is `upstream`
+git remote add upstream https://github.com/duo-labs/chrome-extension-boilerplate.git
+
+// Check
+git remote -v
+
+// Fetch original repo changes into local
+git fetch upstream
+
+// Merge original master branch into current local branch
+git merge upstream/master
+
+// Push latest changes to my account
+git push origin master
+
+// With respect to raise a PR for original author, go to your repo, click `New Pull Request`, ...
+
+````
