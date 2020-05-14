@@ -70,7 +70,7 @@ We wanted a boilerplate from which we could be productive immediately, without i
 
 This work is inspired by [Extensionizr](https://github.com/altryne/extensionizr/), and the icons in `dist/icons` remain under the Extensionizr license.
 
-# Sync with author
+## Sync with author
 
 ````
 // Add remote branch, name is `upstream`
