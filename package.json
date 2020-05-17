@@ -21,6 +21,8 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "@types/jquery": "^3.3.38",
+    "notifyjs-browser": "git+https://github.com/jpillora/notifyjs.git",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   }

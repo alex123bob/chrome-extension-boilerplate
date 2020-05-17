@@ -8,6 +8,8 @@ module.exports = {
         content: './src/app/content.ts',
         background: './src/app/background.ts',
         popup: './src/ui/popup.tsx',
+        customizeUI: './src/app/customizeUI.ts',
+        createNewDefect: './src/app/createNewDefect.ts'
     },
 
     output: {
