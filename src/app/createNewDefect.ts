@@ -1,3 +1,25 @@
+import * as $ from "jquery"
+import "toastr/toastr.scss"
+import * as toastr from "toastr"
+
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-bottom-left",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
 function setValidity (field, isValid){
     if (isValid) {
         field.classList.remove('is-invalid')
@@ -10,7 +32,6 @@ function setValidity (field, isValid){
 
 function inject (){
     let saveBtn = document.querySelector('.chr-QuickDetailEntityFooter-saveButton')
-    let menu = document.querySelector('.chr-QuickDetailActionsMenu')
     const pulldownDefaultVal = '-- No Entry --'
 
     saveBtn.addEventListener('click', function(evt) {
@@ -23,31 +44,28 @@ function inject (){
         if (!foundInBuild.value) {
             setValidity(foundInBuildWrapper, false)
             evt.stopPropagation()
-            // $.notify('Found in build is not filled', 'error')
-            window.alert('Found in build is not filled');
+            toastr.error('Found in build is not filled!')
         }
         else if (ucProduct.innerText === pulldownDefaultVal) {
             setValidity(foundInBuildWrapper, true)
             setValidity(ucProductWrapper, false)
             evt.stopPropagation()
-            // $.notify('UC Product is not filled', 'error')
-            window.alert('Found in build is not filled');
+            toastr.error('UC Product is not filled!')
         }
         else if (upcModule.innerText === pulldownDefaultVal) {
             setValidity(foundInBuildWrapper, true)
             setValidity(ucProductWrapper, true)
             setValidity(upcModuleWrapper, false)
             evt.stopPropagation()
-            // $.notify('UPC Module is not filled', 'error')
-            window.alert('Found in build is not filled');
+            toastr.error('UPC Module is not filled!')
+        }
+        else {
+            setValidity(foundInBuildWrapper, true)
+            setValidity(ucProductWrapper, true)
+            setValidity(upcModuleWrapper, true)
         }
     })
-    menu.addEventListener('click', function(evt) {
-        // $.notify("Access granted", "success");
-        window.alert('Found in build is not filled');
-        // evt.preventDefault()
-        evt.stopPropagation()
-    })
+    toastr.success('Inject successfully')
 }
 
 function observeElement (){

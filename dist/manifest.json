@@ -1,5 +1,5 @@
 {
-    "name": "TS/R/WP Chrome Extension",
+    "name": "Rally Assistant",
     "version": "0.0.1",
     "manifest_version": 2,
     "description": "Boilerplate for a Chrome extension with TypeScript, React, and Webpack.",
