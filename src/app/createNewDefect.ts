@@ -18,9 +18,9 @@ toastr.options = {
     "hideEasing": "linear",
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
-  }
+}
 
-function setValidity (field, isValid){
+function setValidity(field, isValid: boolean) {
     if (isValid) {
         field.classList.remove('is-invalid')
     }
@@ -30,17 +30,17 @@ function setValidity (field, isValid){
     }
 }
 
-function inject (){
+function inject() {
     let saveBtn = document.querySelector('.chr-QuickDetailEntityFooter-saveButton')
     const pulldownDefaultVal = '-- No Entry --'
 
-    saveBtn.addEventListener('click', function(evt) {
-        let foundInBuildWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--foundInBuild')
-        let foundInBuild: HTMLInputElement = foundInBuildWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer .smb-TextInput-input')
-        let ucProductWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--cUCProduct')
-        let ucProduct: HTMLLIElement = ucProductWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer  .smb-Select-text')
-        let upcModuleWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--cUPCComponent')
-        let upcModule: HTMLLIElement = upcModuleWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer  .smb-Select-text')
+    let foundInBuildWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--foundInBuild')
+    let foundInBuild: HTMLInputElement = foundInBuildWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer .smb-TextInput-input')
+    let ucProductWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--cUCProduct')
+    let ucProduct: HTMLLIElement = ucProductWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer  .smb-Select-text')
+    let upcModuleWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--cUPCComponent')
+    let upcModule: HTMLLIElement = upcModuleWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer  .smb-Select-text')
+    saveBtn.addEventListener('click', function (evt) {
         if (!foundInBuild.value) {
             setValidity(foundInBuildWrapper, false)
             evt.stopPropagation()
@@ -65,21 +65,27 @@ function inject (){
             setValidity(upcModuleWrapper, true)
         }
     })
+
+    setValidity(foundInBuildWrapper, false)
+    setValidity(ucProductWrapper, false)
+    setValidity(upcModuleWrapper, false)
+
     toastr.success('Inject successfully')
 }
 
-function observeElement (){
+function observeElement() {
     const targetNode = document.body
 
     // Options for the observer (which mutations to observe)
     const config = { attributes: true, childList: true, subtree: true }
 
     // Callback function to execute when mutations are observed
-    const callback = function(mutationsList, observer) {
+    const callback = function (mutationsList, observer) {
         // Use traditional 'for loops' for IE 11
-        for(let mutation of mutationsList) {
+        for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
-                if (mutation.addedNodes.length > 0 && mutation.addedNodes[0].className === 'chr-QuickDetailActionsMenu') {
+                // observe right column secion in which those fields to be filled will be rendered
+                if (mutation.addedNodes.length > 0 && mutation.addedNodes[0].className === 'chr-QuickDetailResponsiveColumnView-rightColumn') {
                     observer.disconnect()
                     inject()
                 }
@@ -95,7 +101,8 @@ function observeElement (){
 }
 
 function execute() {
-    if (document.querySelector('.chr-QuickDetailEntityFooter-saveButton')) {
+    // Check owner field loading.
+    if (document.querySelector('.chr-QuickDetailAttributeEditorWrapper--owner')) {
         inject()
     }
     else {
