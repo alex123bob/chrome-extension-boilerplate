@@ -1,6 +1,7 @@
 import * as $ from "jquery"
 import "toastr/toastr.scss"
 import * as toastr from "toastr"
+import { DefectFields } from "./constants"
 
 toastr.options = {
     "closeButton": false,
@@ -34,41 +35,40 @@ function inject() {
     let saveBtn = document.querySelector('.chr-QuickDetailEntityFooter-saveButton')
     const pulldownDefaultVal = '-- No Entry --'
 
-    let foundInBuildWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--foundInBuild')
-    let foundInBuild: HTMLInputElement = foundInBuildWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer .smb-TextInput-input')
-    let ucProductWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--cUCProduct')
-    let ucProduct: HTMLLIElement = ucProductWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer  .smb-Select-text')
-    let upcModuleWrapper = document.querySelector('.chr-QuickDetailAttributeEditorWrapper--cUPCComponent')
-    let upcModule: HTMLLIElement = upcModuleWrapper.querySelector('.chr-QuickDetailAttributeEditorWrapper-editorContainer  .smb-Select-text')
-    saveBtn.addEventListener('click', function (evt) {
-        if (!foundInBuild.value) {
-            setValidity(foundInBuildWrapper, false)
-            evt.stopPropagation()
-            toastr.error('Found in build is not filled!')
-        }
-        else if (ucProduct.innerText === pulldownDefaultVal) {
-            setValidity(foundInBuildWrapper, true)
-            setValidity(ucProductWrapper, false)
-            evt.stopPropagation()
-            toastr.error('UC Product is not filled!')
-        }
-        else if (upcModule.innerText === pulldownDefaultVal) {
-            setValidity(foundInBuildWrapper, true)
-            setValidity(ucProductWrapper, true)
-            setValidity(upcModuleWrapper, false)
-            evt.stopPropagation()
-            toastr.error('UPC Module is not filled!')
-        }
-        else {
-            setValidity(foundInBuildWrapper, true)
-            setValidity(ucProductWrapper, true)
-            setValidity(upcModuleWrapper, true)
+    chrome.storage.sync.get(['DefectFields'], res => {
+        if (
+            res.DefectFields
+        ) {
+            let dfs = res.DefectFields
+            let fields = []
+            DefectFields.forEach(field => {
+                if (field.configurable === false) {
+                    return
+                }
+                if (true === dfs[field.key]) {
+                    setValidity(document.querySelector(field.wrapperCls), false)
+                    fields.push(field)
+                }
+                else if (false === dfs[field.key]) {
+                    setValidity(document.querySelector(field.wrapperCls), true)
+                }
+            })
+
+            saveBtn.addEventListener('click', evt => {
+                for (let i = 0; i < fields.length; i++) {
+                    let el = document.querySelector(fields[i].wrapperCls).querySelector(fields[i].fieldCls)
+                    if (el instanceof HTMLInputElement && !el.value) {
+                        evt.stopPropagation()
+                        toastr.error(fields[i].key + ' is not filled')
+                    }
+                    else if (el.innerText === fields[i].defaultValue) {
+                        evt.stopPropagation()
+                        toastr.error(fields[i].key + 'is not filled')
+                    }
+                }
+            })
         }
     })
-
-    setValidity(foundInBuildWrapper, false)
-    setValidity(ucProductWrapper, false)
-    setValidity(upcModuleWrapper, false)
 
     toastr.success('Inject successfully')
 }

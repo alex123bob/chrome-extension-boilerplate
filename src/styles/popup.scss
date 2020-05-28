@@ -1,0 +1,29 @@
+body {
+    min-width: 800px;
+    min-height: 600px;
+}
+
+.popup-padded {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.configurationCt {
+    overflow: auto;
+    height: 500px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+
+    .title {
+        font-weight: 700;
+    }
+
+    .field {
+        padding: 4px;
+        .disabled {
+            color: #ccc;
+        }
+    }
+}
