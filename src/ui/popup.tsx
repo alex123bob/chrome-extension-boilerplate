@@ -43,8 +43,8 @@ class App extends React.Component {
                 {
                     DefectFields.map((cfg, index) => {
                         return (
-                            <div className="field">
-                                <label className={cfg.configurable ? '' : 'disabled'} key={`${cfg.key}-${index}`}>
+                            <div className="field" key={`${cfg.key}-${index}`}>
+                                <label className={cfg.configurable ? '' : 'disabled'}>
                                     {cfg['key']}:
                                     <input
                                         name={cfg.key}
