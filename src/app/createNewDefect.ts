@@ -57,9 +57,14 @@ function inject() {
             saveBtn.addEventListener('click', evt => {
                 for (let i = 0; i < fields.length; i++) {
                     let el = document.querySelector(fields[i].wrapperCls).querySelector(fields[i].fieldCls)
-                    if (el instanceof HTMLInputElement && !el.value) {
-                        evt.stopPropagation()
-                        toastr.error(fields[i].key + ' is not filled')
+                    if (el instanceof HTMLInputElement) {
+                        if (!el.value) {
+                            evt.stopPropagation()
+                            toastr.error(fields[i].key + ' is not filled')
+                        }
+                        else {
+                            // input is filled
+                        }
                     }
                     else if (el.innerText === fields[i].defaultValue) {
                         evt.stopPropagation()
