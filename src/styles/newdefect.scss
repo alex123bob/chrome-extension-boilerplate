@@ -1,0 +1,21 @@
+.ct {
+    height: auto;
+}
+
+.configuration {
+    overflow: auto;
+    height: 400px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+
+    .title {
+        font-weight: 700;
+    }
+
+    .field {
+        padding: 4px;
+        .disabled {
+            color: #ccc;
+        }
+    }
+}
