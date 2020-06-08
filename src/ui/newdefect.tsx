@@ -42,10 +42,7 @@ export default class NewDefect extends React.Component {
     render() {
         return (
             <div className="ct">
-                <Link to="/">
-                    HOME
-                </Link>
-                <div className="configuration popup-padded">
+                <div className="configuration defect-box-padding">
                     <div className="title">Field Configuration</div>
                     {
                         DefectFields.map((cfg, index) => {

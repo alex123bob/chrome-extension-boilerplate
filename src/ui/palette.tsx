@@ -3,6 +3,8 @@ import * as _ from "lodash"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {withRouter, Link} from 'react-router-dom'
+import "../../node_modules/colorjoe/css/colorjoe.css"
+import "../styles/palette.scss"
 
 export default class Palette extends React.Component {
     constructor(props) {
@@ -25,9 +27,6 @@ export default class Palette extends React.Component {
     render() {
         return (
             <div>
-                <Link to="/">
-                    HOME
-                </Link>
                 <div id="palette">
                     
                 </div>

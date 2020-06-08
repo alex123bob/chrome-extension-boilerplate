@@ -1,0 +1,13 @@
+.colorPicker .extras {
+    .color {
+        text-align: left;
+        input {
+            width: calc(100% - 2rem);
+        }
+    }
+    .hex {
+        input {
+            width: 100%;
+        }
+    }
+}
