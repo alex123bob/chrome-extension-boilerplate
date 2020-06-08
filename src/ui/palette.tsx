@@ -6,7 +6,11 @@ import {withRouter, Link} from 'react-router-dom'
 import "../../node_modules/colorjoe/css/colorjoe.css"
 import "../styles/palette.scss"
 
-export default class Palette extends React.Component {
+type PaletteProps = {
+    displayMsg: Function
+}
+
+export default class Palette extends React.Component<PaletteProps> {
     constructor(props) {
         super(props)
     }
@@ -18,9 +22,14 @@ export default class Palette extends React.Component {
     resetColor = () => {
         let me = this
         chrome.storage.sync.set({ color: '' }, function () {
-            me.setState({
-                displayMsg: `color is reset`
+            this.props.displayMsg({
+                title: 'Rest Colour',
+                body: 'Color is reset',
+                type: 'success'
             })
+            // me.setState({
+            //     displayMsg: `color is reset`
+            // })
         })
     }
 
@@ -36,23 +45,22 @@ export default class Palette extends React.Component {
     }
 
     componentDidMount() {
-        let me = this
-        const joe = colorjoe.rgb('palette', '#113c38', [
-            'close',
-            'currentColor',
-            ['fields', {space: 'RGB', limit: 255, fix: 2}],
-            'hex',
-            'text',
-            ['text', {text: 'param demo'}]
-        ]).on('change', _.debounce(color => {
-            chrome.storage.sync.set({color: color.hex()})
-            me.setState({
-                displayMsg: `color is set to ${color.hex()}`
-            })
-        }, 200))
-
         chrome.storage.sync.get(['color'], res => {
-            joe.set(res.color)
+            colorjoe.rgb('palette', res.color, [
+                'close',
+                'currentColor',
+                ['fields', {space: 'RGB', limit: 255, fix: 2}],
+                'hex',
+                'text',
+                ['text', {text: 'param demo'}]
+            ]).on('change', _.debounce(color => {
+                chrome.storage.sync.set({color: color.hex()})
+                this.props.displayMsg({
+                    title: 'Colour setting',
+                    body: `color is set to ${color.hex()}`,
+                    type: 'success'
+                })
+            }, 200))
         })
     }
 }

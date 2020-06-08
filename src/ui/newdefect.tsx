@@ -6,7 +6,11 @@ import {withRouter, Link} from 'react-router-dom'
 import * as ReactDOM from "react-dom"
 import "../styles/newdefect.scss"
 
-export default class NewDefect extends React.Component {
+type NewDefectProps = {
+    displayMsg: Function
+}
+
+export default class NewDefect extends React.Component<NewDefectProps> {
     constructor(props) {
         super(props)
     }
@@ -20,6 +24,11 @@ export default class NewDefect extends React.Component {
         let obj = {}
         obj[name] = input.checked
         this.setState(obj)
+        this.props.displayMsg({
+            title: 'Field status change',
+            body: name + ' will ' + (input.checked ? '' : 'not') + ' be required in creating a new defect',
+            type: input.checked ? 'primary' : 'secondary'
+        })
         chrome.storage.sync.get(['DefectFields'], res => {
             let updateObj
             if (!res) {
