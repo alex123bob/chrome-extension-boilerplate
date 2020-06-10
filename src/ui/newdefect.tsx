@@ -50,28 +50,26 @@ export default class NewDefect extends React.Component<NewDefectProps> {
 
     render() {
         return (
-            <div className="ct">
-                <div className="configuration defect-box-padding">
-                    <div className="title">Field Configuration</div>
-                    {
-                        DefectFields.map((cfg, index) => {
-                            return (
-                                <div className="field" key={`${cfg.key}-${index}`}>
-                                    <label className={cfg.configurable ? '' : 'disabled'}>
-                                        {cfg['key']}:
-                                        <input
-                                            name={cfg.key}
-                                            type="checkbox"
-                                            checked={cfg.required || !!this.state[cfg.key]}
-                                            disabled={!cfg.configurable}
-                                            onChange={this.handleFieldCheckChange}
-                                        />
-                                    </label>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+            <div className="configuration defect-box-padding">
+                <div className="title">Field Configuration</div>
+                {
+                    DefectFields.map((cfg, index) => {
+                        return (
+                            <div className="field" key={`${cfg.key}-${index}`}>
+                                <label className={cfg.configurable ? '' : 'disabled'}>
+                                    {cfg['key']}:
+                                    <input
+                                        name={cfg.key}
+                                        type="checkbox"
+                                        checked={cfg.required || !!this.state[cfg.key]}
+                                        disabled={!cfg.configurable}
+                                        onChange={this.handleFieldCheckChange}
+                                    />
+                                </label>
+                            </div>
+                        )
+                    })
+                }
             </div>
         )
     }

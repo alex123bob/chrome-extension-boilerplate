@@ -36,20 +36,18 @@ class App extends React.Component<PopupProps, PopupStates> {
 
     render() {
         return (
-            <div>
-                <HashRouter>
-                    <Switch>
-                        <Route path="/" exact render={() => <Redirect to="/app/newdefect"/>}/>
-                        {/* <Route path="/app" exact render={() => <Redirect to="/app/main"/>}/> */}
-                        <PrivateRoute path="/app" component={Menu}/>
-                        {/* <Route path="/documentation" exact
-                            render={() => <Redirect to="/documentation/getting-started/overview"/>}/> */}
-                        {/* <Route path="/documentation" component={DocumentationLayoutComponent}/> */}
-                        {/* <Route path="/register" exact component={Register}/> */}
-                        {/* <Route path="/login" exact component={Login}/> */}
-                    </Switch>
-                </HashRouter>
-            </div>
+            <HashRouter>
+                <Switch>
+                    <Route path="/" exact render={() => <Redirect to="/app/newdefect"/>}/>
+                    {/* <Route path="/app" exact render={() => <Redirect to="/app/main"/>}/> */}
+                    <PrivateRoute path="/app" component={Menu}/>
+                    {/* <Route path="/documentation" exact
+                        render={() => <Redirect to="/documentation/getting-started/overview"/>}/> */}
+                    {/* <Route path="/documentation" component={DocumentationLayoutComponent}/> */}
+                    {/* <Route path="/register" exact component={Register}/> */}
+                    {/* <Route path="/login" exact component={Login}/> */}
+                </Switch>
+            </HashRouter>
         )
     }
 

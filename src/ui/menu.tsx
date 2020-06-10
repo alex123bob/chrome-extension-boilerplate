@@ -48,6 +48,7 @@ class Menu extends React.Component<MenuProps> {
     render() {
         return (
             <div>
+                <header></header>
                 <div className="global-toast p-3 my-2 rounded bg-docs-transparent-grid">
                     <Toast isOpen={this.state.isOpen}>
                         <ToastHeader icon={this.state.msg.type || 'primary'}>
@@ -58,17 +59,17 @@ class Menu extends React.Component<MenuProps> {
                         </ToastBody>
                     </Toast>
                 </div>
-                <Row>
-                    <Col className="sidebar" lg={2} md={2}>
+                <div className="section">
+                    <div className="sidebar">
                         <Link className={this.props.location.pathname === '/app/newdefect' ? 'selected' : 'unselected'} to="/app/newdefect">
                             New Defect
                         </Link>
                         <Link className={this.props.location.pathname === '/app/palette' ? 'selected' : 'unselected'}  to="/app/palette">
                             Palette
                         </Link>
-                    </Col>
+                    </div>
 
-                    <Col lg={10} md={10}>
+                    <div className="content">
                         <Switch>
                             <Route path="/app/newdefect" exact render={() => {
                                 return <NewDefect displayMsg={this.displayMsg} />
@@ -77,8 +78,8 @@ class Menu extends React.Component<MenuProps> {
                                 return <Palette displayMsg={this.displayMsg} />
                             }} />
                         </Switch>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         )
     }
