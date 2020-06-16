@@ -91,3 +91,7 @@ git push origin master
 // With respect to raise a PR for original author, go to your repo, click `New Pull Request`, ...
 
 ````
+
+## For extension debug
+
+chrome-extension://mdgmagjcmnidkhbmelcaaagiihenpedd/popup.html#/
