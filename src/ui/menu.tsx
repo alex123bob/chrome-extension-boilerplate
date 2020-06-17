@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router';
 import {withRouter, Link} from 'react-router-dom'
 import Palette from './palette'
 import NewDefect from './newdefect'
+import TestCase from './testcase'
 import {Fade, Toast, ToastHeader, ToastBody, Row, Col} from 'reactstrap'
 import * as toastr from "toastr"
 
@@ -45,6 +46,8 @@ class Menu extends React.Component<MenuProps> {
         })
     }
 
+    getSelectCls = (pathname) => this.props.location.pathname === pathname ? 'selected' : 'unselected'
+
     render() {
         return (
             <div>
@@ -61,11 +64,14 @@ class Menu extends React.Component<MenuProps> {
                 </div>
                 <div className="section">
                     <div className="sidebar">
-                        <Link className={this.props.location.pathname === '/app/newdefect' ? 'selected' : 'unselected'} to="/app/newdefect">
+                        <Link className={this.getSelectCls('/app/newdefect')} to="/app/newdefect">
                             New Defect
                         </Link>
-                        <Link className={this.props.location.pathname === '/app/palette' ? 'selected' : 'unselected'}  to="/app/palette">
+                        <Link className={this.getSelectCls('/app/palette')}  to="/app/palette">
                             Palette
+                        </Link>
+                        <Link className={this.getSelectCls('/app/testcase')}  to="/app/testcase">
+                            Test Cases
                         </Link>
                     </div>
 
@@ -76,6 +82,9 @@ class Menu extends React.Component<MenuProps> {
                             }} />
                             <Route path="/app/palette" exact render={() => {
                                 return <Palette displayMsg={this.displayMsg} />
+                            }} />
+                            <Route path="/app/testcase" exact render={() => {
+                                return <TestCase displayMsg={this.displayMsg} />
                             }} />
                         </Switch>
                     </div>
