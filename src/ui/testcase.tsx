@@ -3,6 +3,8 @@ import * as React from "react"
 // import { DefectFields } from '../app/constants'
 import {withRouter, Link} from 'react-router-dom'
 import * as ReactDOM from "react-dom"
+import Case from './case'
+
 import "../styles/testcase.scss"
 
 type NewDefectProps = {
@@ -20,23 +22,13 @@ export default class TestCase extends React.Component<NewDefectProps> {
 
     renderCases(cases) {
         return cases && cases.length > 0 ? cases.map((c, idx) => {
-            return <div className="ts" key={idx}>
-                <div>{idx}</div>
-                &nbsp;
-                <div>{c['TESECASE Owner']}</div>
-                &nbsp;
-                <div>{c['TESTCASE Id']}</div>
-                <br />
-                <div>{c['TESTCASE Name']}</div>
-                {/* <br /> */}
-                {/* <div>{c['TESTCASE Description']}</div> */}
-            </div>
+            return <Case link={c['TESTCASE Link']} key={idx} name={c['TESTCASE Name']} owner={c['TESTCASE Owner']} caseId={c['TESTCASE Id']} desc={c['TESTCASE Description']} />
         }) : <div>no ts</div>
     }
 
     render() {
         return (
-            <div className="configuration defect-box-padding">
+            <div className="testcase">
                 {
                     this.renderCases(this.state.testCases)
                 }

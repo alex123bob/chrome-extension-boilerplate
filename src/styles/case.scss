@@ -1,0 +1,24 @@
+.case {
+    transition: all .2s ease-in-out;
+    width: 100%;
+    > div {
+        display: inline-block;
+    }
+    min-height: 30px;
+    border-left: 3px solid rgb(132, 134, 137);;
+    padding: 0 4px;
+    margin: 10px 2px;
+    background-color: #d0d0d047;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.005);
+        background-color: white;
+    }
+}
+
+.tp {
+    .tooltip-inner {
+        height: 200px;
+        overflow: auto;
+    }
+}

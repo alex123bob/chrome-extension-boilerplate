@@ -1,11 +1,15 @@
-.ts {
-    > div {
-        display: inline-block;
-        // &:last-child {
-        //     max-width: 200px;
-        //     overflow-y: hidden;
-        //     overflow-x: auto;
-        //     max-height: 18px;
-        // }
+.testcase {
+    font-size: 12px;
+    padding: 10px;
+
+    .title {
+        font-weight: 700;
+    }
+
+    .field {
+        padding: 4px;
+        .disabled {
+            color: #ccc;
+        }
     }
 }
