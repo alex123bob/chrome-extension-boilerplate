@@ -69,7 +69,7 @@ export const DefectFields = [
         type: 'Popover',
         defaultValue: null,
         required: false,
-        configurable: false,
+        configurable: true,
     },
     {
         key: 'TAGS',

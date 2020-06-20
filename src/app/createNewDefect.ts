@@ -3,23 +3,23 @@ import "toastr/toastr.scss"
 import * as toastr from "toastr"
 import { DefectFields } from "./constants"
 
-toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-bottom-left",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
+// toastr.options = {
+//     "closeButton": false,
+//     "debug": false,
+//     "newestOnTop": false,
+//     "progressBar": false,
+//     "positionClass": "toast-bottom-left",
+//     "preventDuplicates": false,
+//     "onclick": null,
+//     "showDuration": "300",
+//     "hideDuration": "1000",
+//     "timeOut": "5000",
+//     "extendedTimeOut": "1000",
+//     "showEasing": "swing",
+//     "hideEasing": "linear",
+//     "showMethod": "fadeIn",
+//     "hideMethod": "fadeOut"
+// }
 
 function setValidity(field, isValid: boolean) {
     if (isValid) {
@@ -57,7 +57,12 @@ function inject() {
             saveBtn.addEventListener('click', evt => {
                 for (let i = 0; i < fields.length; i++) {
                     let el = document.querySelector(fields[i].wrapperCls).querySelector(fields[i].fieldCls)
-                    if (el instanceof HTMLInputElement) {
+                    // for fields like test case, we can't pinpoint it until user select one.
+                    if (!el) {
+                        evt.stopPropagation()
+                        toastr.error(fields[i].key + ' is not filled')
+                    }
+                    else if (el instanceof HTMLInputElement) {
                         if (!el.value) {
                             evt.stopPropagation()
                             toastr.error(fields[i].key + ' is not filled')
